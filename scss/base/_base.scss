@@ -1,0 +1,22 @@
+// container
+.container {
+  padding: 0 15px;
+
+  @include respond(lg) {
+    padding: 0 50px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+}
+
+.stop-scrolling {
+  height: 100vh;
+  overflow-y: hidden;
+  position: fixed;
+}

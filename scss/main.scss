@@ -1,0 +1,416 @@
+// Bootstrapを読み込む
+@import '~bootstrap/scss/bootstrap';
+
+// bootstrapをカスタム
+// containerサイズ
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1200px,
+) !default;
+
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge(
+  (
+    0: 0,
+    1: (
+      $spacer * 0.25,
+    ),
+    2: (
+      $spacer * 0.5,
+    ),
+    3: $spacer,
+    4: (
+      $spacer * 1.5,
+    ),
+    5: (
+      $spacer * 3,
+    ),
+    6: (
+      $spacer * 4,
+    ),
+    7: (
+      $spacer * 5,
+    ),
+    100: (
+      $spacer * 6.25,
+    ),
+    150: (
+      $spacer * 9.375,
+    ),
+  ),
+  $spacers
+);
+
+// import
+@import 'utilities/mixins';
+@import 'base/base';
+@import 'base/typography';
+
+.header {
+  height: 75px;
+  background-color: #1b1310;
+  border-bottom: 2px solid #ffffff;
+  // position: relative;
+
+  &__container {
+    padding: 0 15px;
+    display: flex;
+    @include respond(lg) {
+      padding: 0;
+    }
+  }
+
+  &__logo {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    line-height: 74px;
+    color: #fff;
+  }
+  &__nav {
+    margin-left: auto;
+  }
+  &__nav-list {
+    list-style: none;
+    display: flex;
+  }
+
+  &__nav-item {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 74px;
+
+    &:not(last-child) {
+      margin-right: 55px;
+    }
+
+    & > a {
+      color: #fff;
+    }
+  }
+
+  // ハンバーガーメニュー
+  &__menu-icon {
+    height: 19px;
+    position: fixed;
+    top: 25px;
+    right: 10%;
+    z-index: 20;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      transform-origin: 0 0;
+      transition: all 0.3s ease-out;
+    }
+
+    &-middle {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      transition: all 0.3s ease-out;
+      transform-origin: 0 50%;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      transform-origin: 0 100%;
+      transition: all 0.3s ease-out;
+
+      transition: transform 0.3s ease-out;
+    }
+  }
+
+  &__menu-icon.active {
+    &::before {
+      background-color: #222;
+    }
+
+    .header__menu-icon-middle {
+      background-color: #222;
+    }
+
+    &::after {
+      background-color: #222;
+    }
+  }
+
+  &__menu-icon--close-x {
+    &::before {
+      transform: rotate(45deg) scaleX(1.25) translateY(-5px);
+    }
+
+    .header__menu-icon-middle {
+      opacity: 0;
+    }
+
+    &::after {
+      transform: rotate(-45deg) scaleX(1.25) translateY(3px) translateX(1px);
+    }
+  }
+
+  &__drawer-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1b1310;
+    z-index: 10;
+
+    &--is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &__drawer-nav {
+    @include position-center-self();
+  }
+  &__drawer-list {
+    list-style: none;
+    padding: 0;
+  }
+  &__drawer-item {
+    &:not(:last-child) {
+      margin-bottom: 50px;
+    }
+    & > a {
+      color: #fff;
+    }
+  }
+}
+
+.fv {
+  background-image: url(../images/fv-bgi_sp@2x.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  @include position-center();
+
+  @include respond(lg) {
+    background-image: url(../images/fv-bgi@2x.jpg);
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 500;
+    border: 1px solid #fff;
+    padding: 30px 40px;
+    letter-spacing: 0.05em;
+    color: #fff;
+    width: 300px;
+  }
+}
+
+.about {
+  margin-top: 100px;
+  &__title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 36px;
+  }
+  &__subtitle {
+    margin-top: 75px;
+    line-height: 2;
+    font-size: 20px;
+    @include respond(lg) {
+      font-size: 24px;
+    }
+  }
+  &__text {
+    margin-top: 34px;
+    line-height: 2.14;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+  }
+}
+
+.service {
+  margin-top: 150px;
+  &__title {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 75px;
+    font-size: 36px;
+  }
+  &__content {
+    margin-top: 55px;
+
+    @include respond(lg) {
+      margin-top: 50px;
+    }
+  }
+
+  &__subtitle {
+    line-height: 2;
+    font-size: 20px;
+
+    @include respond(lg) {
+      font-size: 24px;
+    }
+  }
+  // &__content-text-1 {
+  //   @include respond(lg) {
+  //     padding: 0 0 0 30px;
+  //   }
+  // }
+  // &__content-text-2 {
+  //   @include respond(lg) {
+  //     padding: 0 30px 0 0;
+  //   }
+  // }
+  &__text {
+    margin-top: 34px;
+    line-height: 2.14;
+    font-size: 14px;
+  }
+  &__image {
+    max-width: 100%;
+    margin-top: 40px;
+
+    @include respond(lg) {
+      margin-top: 0;
+    }
+  }
+}
+
+.news {
+  margin-top: 150px;
+
+  &__title {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 75px;
+    font-size: 36px;
+    @include respond(lg) {
+      margin-bottom: 70px;
+    }
+  }
+  &__card {
+    padding: 0;
+    margin: 50px auto 0;
+    box-shadow: 0 0 6px #1b1310;
+    max-width: 90%;
+
+    @include respond(lg) {
+      // max-width: 100%;
+      max-width: 320px;
+      margin: 0 0 30px;
+      &:not(:last-child) {
+        margin: 0 34px 30px 0;
+      }
+    }
+  }
+
+  &__image {
+    @include respond(lg) {
+      // max-width: 100%;
+      // width: 320px;
+    }
+  }
+
+  &__body {
+  }
+  &__text {
+    line-height: 1.92;
+    font-size: 13px;
+    max-width: 85%;
+    margin: 0 auto;
+    letter-spacing: 0.05em;
+    @include respond(lg) {
+      max-width: 90%;
+      padding: 5px 0;
+    }
+  }
+}
+.contact {
+  margin-top: 157px;
+  text-align: center;
+
+  @include respond(lg) {
+    margin-top: 127px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &__title {
+    margin-bottom: 75px;
+    font-size: 24px;
+  }
+
+  &__btn {
+    display: inline-block;
+    margin-top: 50px;
+    border-radius: 51px;
+    padding: 14px 0;
+    width: 235px;
+    font-size: 20px;
+    box-shadow: 0 0 6px #1b1310;
+  }
+
+  .form-group {
+    text-align: left;
+    &:not(:last-of-type) {
+      margin-bottom: 25px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-group label {
+    font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+    margin-bottom: 5px;
+  }
+
+  .form-group input {
+    border: 1px solid #141414;
+    border-radius: 0;
+  }
+  .form-group textarea {
+    border: 1px solid #141414;
+    border-radius: 0;
+  }
+}
+
+.footer {
+  margin-top: 50px;
+  text-align: center;
+
+  background-color: #1b1310;
+  color: #fff;
+
+  &__copyright {
+    font-size: 14px;
+    line-height: 2.14;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    padding: 15px 0 16px;
+    margin: 0;
+
+    @include respond(lg) {
+      padding: 25px 0 25px;
+    }
+  }
+}
